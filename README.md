@@ -1,4 +1,3 @@
-# Anonymous
 # EBFT: Effective and Block-Wise Fine-Tuning for Sparse LLMs
 
 
