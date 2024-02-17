@@ -1,0 +1,31 @@
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--model', type=str, help='LLaMA model')
+parser.add_argument('--seed', type=int, default=0, help='Seed for sampling the calibration data.')
+parser.add_argument('--nsamples', type=int, default=256, help='Number of calibration samples.')
+parser.add_argument('--density', type=float, default=0, help='Sparsity level')
+parser.add_argument("--sparsity_type", type=str, choices=["unstructured", "4:8", "2:4"])
+parser.add_argument("--prune_method", type=str, choices=["magnitude", "wanda", "sparsegpt", 
+                    "ablate_mag_seq", "ablate_wanda_seq", "ablate_mag_iter", "ablate_wanda_iter", "search"])
+parser.add_argument("--cache_dir", default="llm_weights", type=str )
+parser.add_argument('--use_variant', action="store_true", help="whether to use the wanda variant described in the appendix")
+parser.add_argument('--save', type=str, default="./out/debug", help='Path to save results.')
+parser.add_argument('--save_model', type=str, default=None, help='Path to save the pruned model.')
+parser.add_argument('--learning_rate', type=float, default=0.01, help='The initial learning rate for AdamW.')
+parser.add_argument('--mask_learning_rate', type=float, default=0.02, help='The initial learning rate for AdamW.')
+parser.add_argument('--weight_decay', type=float, default=0.1, help='Weight decay for AdamW if we apply some.')
+parser.add_argument('--adam_beta1', type=float, default=0.9, help='Beta1 for AdamW optimizer')   
+parser.add_argument('--adam_beta2', type=float, default=0.95, help='Beta2 for AdamW optimizer')
+parser.add_argument('--max_grad_norm', type=float, default=1.0, help='gradients clip')
+parser.add_argument('--warmup_steps', type=int, default=0, help='warmup steps.')
+parser.add_argument('--batch_size', type=int, default=8, help='batch size of input data.')
+parser.add_argument('--M', type=int, default=0, help='m for N:M')
+parser.add_argument('--N', type=int, default=0, help='n for N:M')
+parser.add_argument('--epochs', type=int, default=10, help='epochs of finetune.')
+parser.add_argument('--seqlen', type=int, default=1024, help='dataset seqlen.')
+parser.add_argument("--eval_zero_shot", action="store_true")
+parser.add_argument("--infer_batch_size", type=int, default=16, help="batch size for inference to speed up exp.")
+
+
+args = parser.parse_args()
